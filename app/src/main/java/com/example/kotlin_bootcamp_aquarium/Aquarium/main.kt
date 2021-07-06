@@ -1,8 +1,13 @@
 package com.example.kotlin_bootcamp_aquarium.Aquarium
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+
+@RequiresApi(Build.VERSION_CODES.N)
 fun main (args: Array<String>) {
     buildAquarium()
     makeFish()
+    doCollections()
 }
 
 private fun buildAquarium() {
