@@ -36,6 +36,14 @@ class Aquarium<out T: WaterSupply>(val waterSupply: T) {
     }
 }
 
+inline fun <reified R: WaterSupply> Aquarium<*>.hasWaterSupplyOfType() = waterSupply is R
+
+inline fun <reified T: WaterSupply> WaterSupply.isOfType() = this is T
+
+fun <T: WaterSupply> isWaterClean(aquarium: Aquarium<T>) {
+
+}
+
 // in types can only passed as an arguments, not returned
 interface Cleaner<in T: WaterSupply> {
     fun clean(waterSupply: T)
@@ -56,13 +64,13 @@ fun genericExample() {
 
     val aquarium = Aquarium(TapWater())
     aquarium.waterSupply.addChemicalCleaners()
-
-    val aquarium2 = Aquarium(LakeWater())
-    aquarium2.waterSupply.filter()
-    aquarium2.addWater()
+    aquarium.hasWaterSupplyOfType<TapWater>() //true
+    aquarium.waterSupply.isOfType<LakeWater>() //false
 
     val cleaner = TapWaterCleaner()
     val aquarium3 = Aquarium(TapWater())
     aquarium3.addWater(cleaner)
     addItemTo(aquarium3)
+
+    isWaterClean(aquarium)
 }
