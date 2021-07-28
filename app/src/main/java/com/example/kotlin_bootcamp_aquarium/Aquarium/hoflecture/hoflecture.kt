@@ -30,7 +30,10 @@ fun fishExample() {
         .let{it + 31})
 }
 
-fun myWith(name: String, block: String.() -> Unit) {
+// inline tells the compiler to change the code to replace the lambda with instructions from the lambda
+// avoid load on resources, by not creating a lambda object every time the lambda is called
+// inlining larger functions increase the code size, it's best to use in for small ones
+inline fun myWith(name: String, block: String.() -> Unit) {
 
     name.block()
 }
